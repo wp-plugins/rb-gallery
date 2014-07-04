@@ -1,0 +1,124 @@
+#popup-wrapper { width: 600px; margin: 0 auto; border-radius: 0 0 5px 5px; -moz-border-radius: 0 0 5px 5px; -webkit-border-radius: 0 0 5px 5px; background: #fff; border: 1px solid #ccc; padding: 25px; border-top: none; box-shadow: 0 0 5px #ccc; -moz-box-shadow: 0 0 5px #ccc; -webkit-box-shadow: 0 0 5px #ccc; text-align: left; }
+
+/* lightbox styles */
+#lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url(pop-images/overlay.png) repeat; }
+
+#lightbox #rbclose { 
+    position: relative;
+    background: url(pop-images/pop_sprite.png) 0 0;
+    color: #fff; 
+    font-size: 12px;
+    height: 35px;
+    margin-right: 20px;
+    position: relative;
+    text-align: right;
+    left:20px;
+    top: 3%;
+    width: 35px;
+    z-index: 9999; 
+}
+
+#lightbox img { 
+max-width: 940px;
+ }
+
+/* slideshow styles */
+#slideshow { 
+    z-index: 9998; 
+    margin: 0 auto; 
+    padding: 10px; 
+    background-color: #fff; 
+    box-shadow: 0 0 20px rgba(0,0,0,0.4); 
+}
+
+#slideshow ul > li { 
+    list-style: none; 
+}
+
+.nav { display: none; }
+.prev, .next { 
+    font-family: 'arial', san-serif;
+    position: absolute; 
+    top: 50%; 
+    background: rgba(100, 100, 100, .5); 
+    padding: .25em .5em; color: #fff; 
+    text-decoration: none; 
+}
+.next { 
+    background: url(pop-images/pop_sprite.png) 0 -72px;
+    height: 25px;
+    width: 25px;
+    right: 10px; }
+
+.prev { 
+    background: url(pop-images/pop_sprite.png) 0 -37px;
+    height: 25px;
+    width: 25px;
+    left: 10px; 
+}
+
+.lightbox-title {
+    color: #444;
+    font: 13px/20px "Helvetica Neue",Helvetica,Arial,sans-serif;
+    padding:0px 21px;
+}
+
+.lbthumb {
+    display:none;
+}
+
+#thumbwrapper {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    z-index: 8050;
+}
+
+#thumbwrapper.bottom {
+    bottom: 2px;
+}
+
+#thumbwrapper.top {
+    top: 2px;
+}
+
+#thumbwrapper ul {
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#thumbwrapper ul li {
+    float: left;
+    padding: 1px;
+    opacity: 0.5;
+}
+
+#thumbwrapper ul li.active {
+    opacity: 0.75;
+    padding: 0;
+    border: 1px solid #fff;
+}
+
+#thumbwrapper ul li:hover {
+    opacity: 1;
+}
+
+#thumbwrapper ul li a {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #222;
+    background: #111;
+    outline: none;
+}
+
+#thumbwrapper ul li img {
+    display: block;
+    position: relative;
+    border: 0;
+    padding: 0;
+    max-width: none;
+}
