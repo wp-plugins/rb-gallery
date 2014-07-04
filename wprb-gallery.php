@@ -3,7 +3,7 @@
  *	Plugin Name: RB Gallery Plugin
  *	Plugin URI: http://www.websiteop.com
  *	Description: Provides an album driven gallery.
- *	Version: 1.0
+ *	Version: 1.1
  *	Author: WebsiteOp
  *	Author URI: http://www.websiteop.com
  *	License: GPL2
@@ -19,7 +19,6 @@ function wprb_gallery_menu() {
 	 *
 	*/
 
-//add_menu_page("Official RB Gallery Plugin", "RB Gallery", "manage_options", "wprb-gallery", "" ,6);
 	add_options_page(
 		'Official_RB_Gallery_Plugin',
 		'RB Gallery',
@@ -162,13 +161,10 @@ function wprb_gallery_options_page() {
 
 	add_shortcode( 'wprb_gallery', 'wprb_gallery_shortcode' );
 
-/* Added images folder wp-content: rb-gallery ; db tables: wp_rbgallery_pics, wp_rbgallery_albums */
-
 /* INSTALL SCRIPT */
 function plugin_install_script_for_wprb_gallery()
 {
 	global $wpdb;
-    // use mkdir - php - is_dir
 
         $sql = "CREATE TABLE wp_rbgallery_albums (
 		  album_id int(10) unsigned NOT NULL AUTO_INCREMENT,
