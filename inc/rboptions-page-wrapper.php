@@ -17,6 +17,12 @@ function create_thumbnail($source_image_path, $thumbnail_image_path, $imageWidth
         case IMAGETYPE_GIF:
             $source_gd_image = imagecreatefromgif($source_image_path);
             break;
+        case IMAGETYPE_JPEG:
+            $source_gd_image = imagecreatefromjpeg($source_image_path);
+            break;
+        case IMAGETYPE_PNG:
+            $source_gd_image = imagecreatefrompng($source_image_path);
+            break;
     }
     if ($source_gd_image === false) {
         return false;
@@ -56,6 +62,12 @@ function create_thumbnail($source_image_path, $thumbnail_image_path, $imageWidth
 		case IMAGETYPE_GIF:
 			imagepng($thumbnail_gd_image, $thumbnail_image_path, 9 );
 		break;
+		case IMAGETYPE_JPEG:
+			imagejpeg($thumbnail_gd_image, $thumbnail_image_path, 100);
+		break;
+		case IMAGETYPE_PNG:
+			imagepng($thumbnail_gd_image, $thumbnail_image_path, 9 );
+		break;
 	}
     imagedestroy($source_gd_image);
     imagedestroy($thumbnail_gd_image);
@@ -70,7 +82,7 @@ function upload_file($tmp_name, $name, $type, $size) {
   $ext = substr($filename, strrpos($filename, '.') + 1);
  
   if ($size > 900001) { echo 'exceeded file size limit'; }
-  if (($ext == "gif")  && ($size < 900000)) {
+  if (($ext == "jpg") || ($ext == "gif") || ($ext == "png")   && ($size < 900000)) {
 		// Make more secure by checking
 		$path = PIC_BIG_DIR;
 		$name = $path . DIRECTORY_SEPARATOR . $name;
@@ -94,7 +106,7 @@ function filename_dup_check($name,$album_id) {
 
 	$take_off = strlen(PIC_BIG_DIR) + 1;
 
-	$dir= PIC_BIG_DIR .'/{*.gif}'; //{*.jpg,*.gif}
+	$dir= PIC_BIG_DIR .'/{*.gif,*.jpg,*.png}'; //{*.jpg,*.gif}
  
 	foreach(glob($dir, GLOB_BRACE) as $file) 
 	{
@@ -111,9 +123,10 @@ function filename_dup_check($name,$album_id) {
 }
 
 function create_thumbname($image_name) {
-		// Create Thumbnail name
-	$thumb_img_nameA = substr($image_name, 0,-4);
-	$thumb_img_nameB = $thumb_img_nameA .'_m.gif';
+	// Create Thumbnail name
+	$thumb_ext = substr($image_name, -4);
+	$new_image_name = substr($image_name,0, -4);
+	$thumb_img_nameB = $new_image_name .'_m' . $thumb_ext;
 	return $thumb_img_nameB;
 }
 
@@ -310,12 +323,6 @@ if (isset($_POST['update_imgs'])) {
 						</div> <!-- .inside -->
 					
 					</div> <!-- .postbox -->
-
-
-
-
-
-
 
 
 
@@ -693,7 +700,7 @@ if (isset($_GET['edit'])) {
 					
 						<h3><span>RB Gallery</span></h3>
 						<div class="inside">
-							By: <a href="http://www.websiteop.com" title="Web design and Internet Marketing Solutions">WebsiteOp</a><br />
+							By: <a href="http://www.ronniebailey.net" title="Web developer">Ronnie Bailey</a><br />
 							To use this gallery, paste the following shortcode into your wordpress page or post.<br /><br />
 
 							[wprb_gallery]
