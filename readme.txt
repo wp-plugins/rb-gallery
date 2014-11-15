@@ -1,6 +1,6 @@
-=== Plugin Name ===
+=== RB Gallery ===
 Contributors: Ron Bailey
-Donate link: http://www.websiteop.com/premium-wordpress-plugins/free
+Donate link: http://www.ronniebailey.net
 Tags: gallery, gallery shortcode, photo gallery, simple gallery, wordpress photo gallery, image, images, media, photo, photo albums, album, photos, picture, thumbnails, slider, one page gallery, best gallery plugin
 Requires at least: 1.1
 Tested up to: 4.0
@@ -26,7 +26,7 @@ Below is a list of the features offered in this photo gallery plugin:
 * Ability to sort your gallery images.
 * Flexible gallery shortcodes which you can apply to any post or page to insert your gallery.
 
-Visit the [RB Gallery Plugin](http://www.websiteop.com/premium-wordpress-plugins/free) page for more information.
+Visit the [RB Gallery Plugin](http://www.ronniebailey.net) for more information.
 
 == Installation ==
 
@@ -57,8 +57,7 @@ See the following page for a sample video:
 http://www.youtube.com/watch?v=lcqzum3J2kk
 
 == Upgrade Notice ==
-You may upgrade to RB Gallery Pro which allows jpg, png, and gif file images.
-Pro version here, http://www.websiteop.com/premium-wordpress-plugins
+* Working on more updates
 
 == Changelog ==
 
@@ -66,3 +65,5 @@ Pro version here, http://www.websiteop.com/premium-wordpress-plugins
 - Awaiting First commit to the WP repository.
 = 1.1 = 
 - Gallery JS updated along with ability to upload same image more than once.
+= 1.2 = 
+- Added Ability to upload and use jpg and png images

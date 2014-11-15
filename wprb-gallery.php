@@ -1,12 +1,12 @@
 <?php
 /*
  *	Plugin Name: RB Gallery Plugin
- *	Plugin URI: http://www.websiteop.com
- *	Description: Provides an album driven gallery.
- *	Version: 1.1
- *	Author: WebsiteOp
- *	Author URI: http://www.websiteop.com
- *	License: GPL2
+ *	Plugin URI: http://www.ronniebailey.net
+ *	Description: A simple one-page image gallery Wordpress plugin.
+ *	Version: 1.2
+ *	Author: Ron Bailey
+ *	Author URI: http://www.ronniebailey.net
+ *	License: GPLv3
  *
 */
 
