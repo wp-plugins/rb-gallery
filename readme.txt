@@ -18,7 +18,7 @@ Setting up your gallery literally takes a couple of minutes using the simple (on
 Below is a list of the features offered in this photo gallery plugin:
 
 = Easy gallery creation =
-* Upload your photos to the gallery in GIF format.
+* Upload your photos to the gallery in GIF, JPG, or PNG format.
 * Add as many images as you want to your photo gallery
 * Edit the images and other image properties (example: name, description etc).
 * Exclude/include photos which are part of a album/gallery.
@@ -45,7 +45,7 @@ Go to the RB Gallery menu under 'Settings' and start creating your photo albums.
 
 = Can I upload jpg or png image files? =
 
-Yes, but you have to upgrade to the 'Pro' version
+Yes, you can upload GIF, PNG, and JPG files
 
 = Can I upload lots of photos to my albums? =
 
