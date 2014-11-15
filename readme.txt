@@ -7,7 +7,7 @@ Tested up to: 4.0
 Stable tag: 1.1
 License: GPLv3 
 
-A simple, user-friendly photo gallery plugin for your WordPress site.
+A one-page carousel photo gallery plugin for your WordPress site.
 
 == Description ==
 
