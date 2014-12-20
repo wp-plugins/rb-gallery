@@ -3,7 +3,7 @@ Contributors: Ron Bailey
 Donate link: http://www.ronniebailey.net
 Tags: gallery, gallery shortcode, photo gallery, simple gallery, wordpress photo gallery, image, images, media, photo, photo albums, album, photos, picture, thumbnails, slider, one page gallery, best gallery plugin
 Requires at least: 1.1
-Tested up to: 4.0
+Tested up to: 4.1
 Stable tag: 1.1
 License: GPLv3 
 
