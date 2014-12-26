@@ -3,7 +3,7 @@
  *	Plugin Name: RB Gallery Plugin
  *	Plugin URI: http://www.ronniebailey.net
  *	Description: A simple one-page image gallery Wordpress plugin.
- *	Version: 1.2
+ *	Version: 1.3
  *	Author: Ron Bailey
  *	Author URI: http://www.ronniebailey.net
  *	License: GPLv3
@@ -34,8 +34,10 @@ add_action( 'admin_menu', 'wprb_gallery_menu' );
 
 
 function wprb_gallery_scripts() {
-	wp_enqueue_style( 'style-wprb-gallery', plugin_dir_url(__FILE__) . 'inc/css/rbpop-style.css', array(), null, false );
-	wp_enqueue_script( 'script-wprb-gallery', plugin_dir_url(__FILE__) . 'inc/js/jquery.rbpop-1.5.js', array('jquery'), null, false  );
+	wp_enqueue_style( 'style-wprb-gallery', plugin_dir_url(__FILE__) . 'inc/rbgall-jscss/jquery.rbgallery.css', array(), null, false );
+	wp_enqueue_style( 'style-wprb-gallery-thumbs', plugin_dir_url(__FILE__) . 'inc/rbgall-jscss/helpers/jquery.rbgallery-thumbs.css', array(), null, false );
+	wp_enqueue_script( 'script-wprb-gallery', plugin_dir_url(__FILE__) . 'inc/rbgall-jscss/jquery.rbgallery.js', array('jquery'), null, false  );
+	wp_enqueue_script( 'script-wprb-gallery-thumbs', plugin_dir_url(__FILE__) . 'inc/rbgall-jscss/helpers/jquery.rbgallery-thumbs.js', array('jquery'), null, false  );
 }
 
 add_action( 'init', 'wprb_gallery_scripts' );
@@ -147,7 +149,6 @@ function wprb_gallery_options_page() {
 			'album_display' => 'column'
 			), $atts ) );*/
 
-		//var_dump($get_albums);
 		require( 'inc/front-end-helper.php' );
 		$get_albums = get_albums();
 
