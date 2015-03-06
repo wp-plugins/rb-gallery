@@ -1,6 +1,6 @@
 === RB Gallery ===
 Contributors: Ron Bailey
-Donate link: http://www.ronniebailey.net
+Donate link: http://www.websiteop.com
 Tags: gallery, gallery shortcode, photo gallery, simple gallery, wordpress photo gallery, image, images, media, photo, photo albums, album, photos, picture, thumbnails, slider, one page gallery, best gallery plugin
 Requires at least: 1.1
 Tested up to: 4.1
@@ -26,7 +26,7 @@ Below is a list of the features offered in this photo gallery plugin:
 * Ability to sort your gallery images.
 * Flexible gallery shortcodes which you can apply to any post or page to insert your gallery.
 
-Visit the [RB Gallery Plugin](http://www.ronniebailey.net) for more information.
+Visit the [RB Gallery Plugin](http://www.websiteop.com) for more information.
 
 == Installation ==
 
