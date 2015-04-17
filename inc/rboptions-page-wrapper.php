@@ -700,7 +700,7 @@ if (isset($_GET['edit'])) {
 					
 						<h3><span>RB Gallery</span></h3>
 						<div class="inside">
-							By: <a href="http://www.ronniebailey.net" title="Web developer">Ronnie Bailey</a><br />
+							By: <a href="http://www.websiteop.com" title="Web Design Services">WebsiteOp</a><br />
 							To use this gallery, paste the following shortcode into your wordpress page or post.<br /><br />
 
 							[wprb_gallery]
