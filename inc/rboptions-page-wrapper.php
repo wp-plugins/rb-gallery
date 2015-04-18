@@ -98,7 +98,7 @@ function upload_file($tmp_name, $name, $type, $size) {
 function filename_dup_check($name,$album_id) {
 
 	global $wpdb;
-	(int)$row_cnt = $wpdb->query("SELECT pic_id, album_id from wp_rbgallery_pics where album_id = $album_id");
+	(int)$row_cnt = $wpdb->query("SELECT pic_id, album_id from {$wpdb->base_prefix}wp_rbgallery_pics where album_id = $album_id");
 
 	$filename = basename($name);
   	$ext = substr($filename, strrpos($filename, '.') + 1);
@@ -135,9 +135,9 @@ function save_images_to_database($image_name, $album_id, $thumb_img_name) {
 	global $wpdb;
 	// Save image info to databse - put in upload function and resize function
 	// get row num and add on next number
-	$row_cnt = $wpdb->query("SELECT pic_id, album_id from wp_rbgallery_pics where album_id = $album_id");
+	$row_cnt = $wpdb->query("SELECT pic_id, album_id from {$wpdb->base_prefix}wp_rbgallery_pics where album_id = $album_id");
 	$sort_order = $row_cnt + 1;
-	$rows_ret = $wpdb->query($wpdb->prepare("INSERT INTO wp_rbgallery_pics (`album_id`, `thumbnail_url`, `sorting_order`, `pic_name`) VALUES (%d,%s,%d,%s); ",$album_id, $thumb_img_name, $sort_order, $image_name));
+	$rows_ret = $wpdb->query($wpdb->prepare("INSERT INTO {$wpdb->base_prefix}wp_rbgallery_pics (`album_id`, `thumbnail_url`, `sorting_order`, `pic_name`) VALUES (%d,%s,%d,%s); ",$album_id, $thumb_img_name, $sort_order, $image_name));
 	
 	$redirect_url = admin_url('admin.php?page=wprb-gallery&album_id=', __FILE__).$album_id;
     ?>
@@ -154,6 +154,7 @@ if (isset($_FILES['photo']['tmp_name'])) {
 	//$big_img_name = $_FILES['photo']['name'];
 
 	$new_name = filename_dup_check($_FILES['photo']['name'], $_GET['album_id']);
+	$new_name = preg_replace('/\s+/', '', $new_name);
 
 	if (!empty($new_name)) {
 	$uploaded_file_ok = upload_file($_FILES['photo']['tmp_name'], $new_name,$_FILES["photo"]["type"], $_FILES["photo"]["size"]);
@@ -182,7 +183,7 @@ if (isset($_FILES['photo']['tmp_name'])) {
 function delete_album($album_id) {
 	global $wpdb; 
 
-	$wpdb->delete( 'wp_rbgallery_albums', array( 'album_id' => $album_id ) );
+	$wpdb->delete( "{$wpdb->base_prefix}wp_rbgallery_albums", array( 'album_id' => $album_id ) );
 	delete_multiple_pics($album_id);
 
 }
@@ -191,12 +192,12 @@ function delete_multiple_pics($album_id) {
 
 	global $wpdb; 
 
-	$getpics = $wpdb->get_results("SELECT pic_id, album_id, thumbnail_url, pic_name FROM wp_rbgallery_pics WHERE album_id = ".$album_id);
+	$getpics = $wpdb->get_results("SELECT pic_id, album_id, thumbnail_url, pic_name FROM {$wpdb->base_prefix}wp_rbgallery_pics WHERE album_id = ".$album_id);
 	foreach ($getpics as $getpic) {
 
 		delete_pic($getpic->pic_id,$getpic->album_id );
 	}
-	$wpdb->delete( 'wp_rbgallery_pics', array( 'album_id' => $album_id ) );
+	$wpdb->delete( "{$wpdb->base_prefix}wp_rbgallery_pics", array( 'album_id' => $album_id ) );
 }
 
 if (isset( $_GET['delete'] ) && isset($_GET['album_id'])) {
@@ -219,11 +220,9 @@ if (isset( $_GET['pic_id'] )) {
 function delete_pic( $pic_id,$album_id ) {
 	global $wpdb; 
 	// select pic by id
-	$getpics = $wpdb->get_row("SELECT pic_id, thumbnail_url, pic_name FROM wp_rbgallery_pics WHERE pic_id = ".$pic_id);
+	$getpics = $wpdb->get_row("SELECT pic_id, thumbnail_url, pic_name FROM {$wpdb->base_prefix}wp_rbgallery_pics WHERE pic_id = ".$pic_id);
 
 	// delete from directories
-
-	//var_dump($getpic);
 	$bigpic_path = PIC_BIG_DIR.DIRECTORY_SEPARATOR.$getpics->pic_name;
 	$thumb_path  = PIC_THUMB_DIR.DIRECTORY_SEPARATOR.$getpics->thumbnail_url;
 
@@ -232,7 +231,7 @@ function delete_pic( $pic_id,$album_id ) {
 
 
 	// delete from DB
-	$wpdb->delete( 'wp_rbgallery_pics', array( 'pic_id' => $pic_id ) );
+	$wpdb->delete( "{$wpdb->base_prefix}wp_rbgallery_pics", array( 'pic_id' => $pic_id ) );
 
 	$redirect_url = admin_url('admin.php?page=wprb-gallery&album_id=', __FILE__).$album_id;
     ?>
@@ -252,12 +251,12 @@ if (isset($_POST['update_imgs'])) {
 
 				$wprb_imgedit_title = esc_html( $_POST['wprb_imgedit_title'] );
 				$wprb_imgedit_sortingorder = esc_html( $_POST['wprb_imgedit_sortingorder'] );
-				$rb_pics_table = 'wp_rbgallery_pics';
+				$rb_pics_table = "{$wpdb->base_prefix}wp_rbgallery_pics";
 
 		global $wpdb; 
 
 		//update database
-		$rows_ret = $wpdb->query($wpdb->prepare("UPDATE wp_rbgallery_pics SET pic_id = %d,album_id = %d, title = %s, sorting_order = %d WHERE pic_id = %d AND album_id = %d; ",$wprb_imgedit_alidimg,$wprb_imgedit_albumid ,$wprb_imgedit_title,$wprb_imgedit_sortingorder,$wprb_imgedit_alidimg,$wprb_imgedit_albumid));
+		$rows_ret = $wpdb->query($wpdb->prepare("UPDATE {$wpdb->base_prefix}wp_rbgallery_pics SET pic_id = %d,album_id = %d, title = %s, sorting_order = %d WHERE pic_id = %d AND album_id = %d; ",$wprb_imgedit_alidimg,$wprb_imgedit_albumid ,$wprb_imgedit_title,$wprb_imgedit_sortingorder,$wprb_imgedit_alidimg,$wprb_imgedit_albumid));
 
 
 				$redirect_url = admin_url('admin.php?page=wprb-gallery&album_id=', __FILE__).$wprb_imgedit_albumid;
@@ -357,10 +356,10 @@ if ($album_id !== '') {
 	<ul class="wprbgall-badges">
 	<?php
 
-	$check_db_forempty = $wpdb->query( "SHOW TABLES LIKE 'wp_rbgallery_albums' " );
+	$check_db_forempty = $wpdb->query( "SHOW TABLES LIKE '".$wpdb->base_prefix."wp_rbgallery_albums' " );
 	if(empty($check_db_forempty)) { echo 'Database is not found for this plugin'; exit(); }
 
-	$albumres = $wpdb->get_results( "SELECT DISTINCT album_id,album_name, album_date, description,album_order FROM wp_rbgallery_albums;", OBJECT );
+	$albumres = $wpdb->get_results( "SELECT DISTINCT album_id,album_name, album_date, description,album_order FROM {$wpdb->base_prefix}wp_rbgallery_albums;", OBJECT );
 
 	foreach ($albumres as $res) :
 		?>
@@ -380,7 +379,7 @@ if ($album_id !== '') {
 				<?php 
 				if (!empty($res->album_id)) { 
 
-					$apics= $wpdb->get_row("SELECT album_id, thumbnail_url, sorting_order FROM wp_rbgallery_pics WHERE album_id = $res->album_id AND sorting_order = 1");
+					$apics= $wpdb->get_row("SELECT album_id, thumbnail_url, sorting_order FROM {$wpdb->base_prefix}wp_rbgallery_pics WHERE album_id = $res->album_id AND sorting_order = 1");
 					
 					if (!empty($apics)) { ?>
 						<img class="wprbgall-gravatar" width="120px" src="<?php echo PIC_THUMB_PATH .'/'. $apics->thumbnail_url; ?>">
@@ -451,7 +450,7 @@ if (isset($upload_message))
 if (isset($_GET['album_id'])) {
 $get_album_id = $_GET['album_id'];
 // Get data if exists
-$edit_abum_data = $wpdb->get_results( 'SELECT * FROM wp_rbgallery_albums WHERE album_id ='. $get_album_id, OBJECT );
+$edit_abum_data = $wpdb->get_results( "SELECT * FROM {$wpdb->base_prefix}wp_rbgallery_albums WHERE album_id =". $get_album_id, OBJECT );
 }
 
 
@@ -526,14 +525,6 @@ if (isset($edit_abum_data)) {
 
 
 
-
-
-
-
-
-
-
-
        
 <?php if (!empty($get_images_for_album) ) { ?>
 
@@ -590,7 +581,7 @@ if (isset($_GET['edit'])) {
 
 		$imageID = $_GET['pic_id'];
 
-		$edit_pics = $wpdb->get_results( 'SELECT * FROM wp_rbgallery_pics WHERE pic_id ='. $imageID, OBJECT );
+		$edit_pics = $wpdb->get_results( "SELECT * FROM {$wpdb->base_prefix}wp_rbgallery_pics WHERE pic_id =". $imageID, OBJECT );
 		?>
 		<script>
 

@@ -3,6 +3,49 @@
 $path = plugins_url();
 define("PIC_BIG_DIR", content_url() . '/rb-gallery/gallery-uploads' );
 define("PIC_THUMB_DIR", content_url() . '/rb-gallery/album-thumbs' );
+
+
+function show_front_end_galleries($album_id, $get_pics) {
+        global $wpdb;
+
+        echo '<style>
+        .rbgallery-custom .rbgallery-skin {
+                box-shadow: 0 0 50px #222;
+                }
+        .show-rbgallery-div {display:none;}
+        </style>
+        <div class="show-rbgallery-div">';
+
+if (is_array($get_pics)) {
+        foreach ($get_pics as $get_pic) {
+?>
+        <a href="<?php echo PIC_BIG_DIR.'/'.$get_pic->pic_name; ?>" data-rbgallery-group="thumb" class="rbgallery-thumbs" title="<?php echo $get_pic->title; ?>"><img src="<?php echo PIC_THUMB_DIR.'/'. $get_pic->thumbnail_url; ?>" /></a>
+        <?php
+
+                }
+        }
+        echo '</div><script>
+        jQuery(document).ready(function($) {
+                $(".rbgallery").rbgallery();
+                $(".rbgallery-thumbs").rbgallery({
+                                        prevEffect : "none",
+                                        nextEffect : "none",
+
+                                        closeBtn  : false,
+                                        arrows    : true,
+                                        nextClick : true,
+
+                                        helpers : {
+                                                thumbs : {
+                                                        width  : 50,
+                                                        height : 50
+                                                }
+                                    }
+                        }).trigger("click");
+           });
+        </script>';
+}
+
 ?>
 <style>
 	.wprb_album_group {
@@ -38,45 +81,3 @@ $get_pics = get_pics( $album_id );
 if (!empty($get_pics)) {
 	show_front_end_galleries($album_id, $get_pics);
 }
-// trigger lightbox
-
-function show_front_end_galleries($album_id, $get_pics) {
-	global $wpdb;
-
-	echo '<style>
-	.rbgallery-custom .rbgallery-skin {
-		box-shadow: 0 0 50px #222;
-		}
-	.show-rbgallery-div {display:none;}
-	</style>
-	<div class="show-rbgallery-div">';
-
-if (is_array($get_pics)) {
-	foreach ($get_pics as $get_pic) { 	
-?>	
-	<a href="<?php echo PIC_BIG_DIR.'/'.$get_pic->pic_name; ?>" data-rbgallery-group="thumb" class="rbgallery-thumbs" title="<?php echo $get_pic->title; ?>"><img src="<?php echo PIC_THUMB_DIR.'/'. $get_pic->thumbnail_url; ?>" /></a>
-	<?php
-
-		}
-	}
-	echo '</div><script>
-	jQuery(document).ready(function($) { 
-	        $(".rbgallery").rbgallery();
-	        $(".rbgallery-thumbs").rbgallery({
-					prevEffect : "none",
-					nextEffect : "none",
-
-					closeBtn  : false,
-					arrows    : true,
-					nextClick : true,
-
-					helpers : {
-						thumbs : {
-							width  : 50,
-							height : 50
-						}
-				    }
-			}).trigger("click");
-	   });
-	</script>';
-} 

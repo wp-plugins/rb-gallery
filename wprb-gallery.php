@@ -53,8 +53,6 @@ function wprb_gallery_options_page() {
 		global $options;
 		global $wpdb;
 
-		require('inc/wprb-gallery-helpers.php');
-
 		// Add Album
 		if( isset( $_POST['wprbgall_form_submitted'] ) ) {
 			$hidden_field = esc_html($_POST['wprbgall_form_submitted'] );
@@ -64,7 +62,7 @@ function wprb_gallery_options_page() {
 				$wprbgall_albumname = esc_html( $_POST['wprbgall_albumname'] );
 				$wprbgall_albumdesc = esc_html( $_POST['wprbgall_albumdesc'] );
 				$wprbgall_albumord = esc_html( $_POST['wprbgall_albumorder'] );
-				$rb_gal_table = rb_gallery_albums();
+				$rb_gal_table = $wpdb->base_prefix . "wp_rbgallery_albums";
 
 				//input name into database
 				$wpdb->insert($rb_gal_table, array("album_name" => $wprbgall_albumname, "album_date" => date('Y-m-d'), "description" => $wprbgall_albumdesc, "album_order" => $wprbgall_albumord ));
@@ -87,7 +85,7 @@ function wprb_gallery_options_page() {
 
 				$wprbgall_albumname = esc_html( $_POST['wprbgall_albumname'] );
 				$wprbgall_albumdesc = esc_html( $_POST['wprbgall_albumdesc'] );
-				$rb_gal_table = rb_gallery_albums();
+				$rb_gal_table = $wpdb->base_prefix . "rbgallery_albums";
 
 				//update database
 				$wpdb->update( 
@@ -134,7 +132,7 @@ function wprb_gallery_options_page() {
 		global $wpdb;
 		if (!empty($album_id)) {
 		//sanitize this GET var 
-		$results = $wpdb->get_results( 'SELECT * FROM wp_rbgallery_pics WHERE album_id= '.$album_id.'  ', OBJECT );
+		$results = $wpdb->get_results( 'SELECT * FROM {$wpdb->base_prefix}wp_rbgallery_pics WHERE album_id= '.$album_id.'  ', OBJECT );
 		return $results;
 		}
 	}
@@ -167,7 +165,7 @@ function plugin_install_script_for_wprb_gallery()
 {
 	global $wpdb;
 
-        $sql = "CREATE TABLE wp_rbgallery_albums (
+        $sql = "CREATE TABLE {$wpdb->base_prefix}wp_rbgallery_albums (
 		  album_id int(10) unsigned NOT NULL AUTO_INCREMENT,
 		  album_name varchar(100) DEFAULT NULL,
 		  album_date date DEFAULT NULL,
@@ -179,7 +177,7 @@ function plugin_install_script_for_wprb_gallery()
 		dbDelta( $sql );
 
 
-        $sql = "CREATE TABLE wp_rbgallery_pics (
+        $sql = "CREATE TABLE {$wpdb->base_prefix}wp_rbgallery_pics (
 		  pic_id int(10) unsigned NOT NULL AUTO_INCREMENT, 
 		  album_id int(10) unsigned NOT NULL, 
 		  title text, 
@@ -230,8 +228,8 @@ function plugin_uninstall_script_for_wprb_gallery()
 {
 	global $wpdb;
 
-	$wpdb->query("DROP TABLE wp_rbgallery_albums ");
-	$wpdb->query("DROP TABLE wp_rbgallery_pics ");
+	$wpdb->query("DROP TABLE {$wpdb->base_prefix}wp_rbgallery_albums ");
+	$wpdb->query("DROP TABLE {$wpdb->base_prefix}wp_rbgallery_pics ");
 
 	// delete gallery directories
     $rb_gallery = plugin_dir_path( dirname(dirname(__FILE__))) . 'rb-gallery/';
