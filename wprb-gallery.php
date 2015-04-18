@@ -132,7 +132,7 @@ function wprb_gallery_options_page() {
 		global $wpdb;
 		if (!empty($album_id)) {
 		//sanitize this GET var 
-		$results = $wpdb->get_results( 'SELECT * FROM {$wpdb->base_prefix}wp_rbgallery_pics WHERE album_id= '.$album_id.'  ', OBJECT );
+		$results = $wpdb->get_results( "SELECT * FROM {$wpdb->base_prefix}wp_rbgallery_pics WHERE album_id= {$album_id}", OBJECT );
 		return $results;
 		}
 	}
